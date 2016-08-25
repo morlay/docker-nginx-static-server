@@ -1,0 +1,15 @@
+gzip on;
+gzip_comp_level 6;
+gzip_types text/css application/javascript;
+
+server {
+  listen 80;
+  root /html;
+
+  # html5 mode
+  location / {
+    try_files $uri /index.html;
+    sub_filter '<!--NODE_CONFIG-->' '<script>window.__CONFIG__ = $NODE_CONFIG;</script>';
+    sub_filter_once on;
+  }
+}
